@@ -29,15 +29,31 @@ fileInput = open(inputfilename, 'r')
 fileOutput = open(outputfilename, 'w')
 
 with open(inputfilename, 'r') as fileInput:
-    while (True):
-        line = fileInput.read(17)
+    isFileEnd = False
+    while not isFileEnd:
+        isNewLine = False
+        line = ""
+
+        #read the next line until [stop]\n
+        while not isNewLine:
+            tmp = fileInput.read(6)
+            if not tmp:
+                isFileEnd = True
+                break;
+                
+            if (tmp == "[stop]"):
+                isNewLine = True
+                tmp = fileInput.read(1) #read the line return
+            else:
+                #read another 10 characters and add the 6 plus 10 to the output line
+                line = line + tmp
+                tmp = fileInput.read(10)
+                line = line + tmp
+                
         #print line
-        if not line:
-            break
-        else:
-            output = obj.decrypt(line[:-1])
-            #print output
-            fileOutput.write(output)
+        output = obj.decrypt(line)
+        #print output
+        fileOutput.write(output)
     
 
 print "created decrypted output file : " + outputfilename

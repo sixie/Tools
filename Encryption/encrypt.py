@@ -38,7 +38,7 @@ for line in fileInput:
     #print "\n\n"
     encryptedLine = obj.encrypt(newLine)
     #print "output: " + encryptedLine
-    fileOutput.write( encryptedLine + "\n")
+    fileOutput.write( encryptedLine + "[stop]\n")
 
 
     
